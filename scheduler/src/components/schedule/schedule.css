@@ -1,0 +1,92 @@
+.schedule-window{
+    background-color: white;
+    width:700px;
+    height:300px;
+    margin:auto;
+    border-radius:20px;
+    margin-top: 20px;
+    display:flex;
+    flex-direction: column;
+    padding: 20px;
+    display: none;
+}
+
+.clear {
+    border:1px solid rgb(164, 164, 164);
+    border-radius: 20px;
+    width: 100px;
+    color:rgb(104, 104, 104);
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.clear:hover{
+    background-color: rgb(200, 200, 200);
+}
+
+.title{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.hours{
+    height:30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgb(213, 213, 213);
+    color: rgb(141, 141, 141);
+}
+
+.hours > div > input{
+    width:100px;
+    /* border:none; */
+    border:1px solid rgb(207, 207, 207);
+    border-radius:10px;
+    height: 40px;
+    margin: 5px;
+    color:rgb(130, 130, 130);
+    font-size: 17px;
+}
+
+.hours > div > input:focus{
+    outline-width: 0px;
+}
+
+.spaces{
+    height:60%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-grow: inherit;
+}
+
+.unocupied {
+    height:30%;
+    width: 15%;
+    /* background-color: red; */
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:rgb(114, 114, 114);
+    font-size: 15px;
+    cursor:pointer;
+    border-radius: 20px;
+    transition:all 0.25s
+}
+
+.ocupied {
+    height:30%;
+    width: 15%;
+    /* background-color: red; */
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:rgb(186, 186, 186);
+    font-size: 15px;
+    cursor:default
+}

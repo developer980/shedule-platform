@@ -1,0 +1,86 @@
+.activity-form{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(230, 228, 227);
+    flex-wrap: wrap;
+    margin: auto;
+    margin-top: 150px;
+    width:70%;
+    height: fit-content;
+    border-radius: 20px;
+    padding: 20px;
+    width: fit-content;
+}
+
+.activity-form > div {
+    margin-bottom: 20px;
+    /* border:1px solid; */
+    width:89%;
+}
+
+.activity-form > div > input {
+    width:100%;
+    border:none;
+    border-radius: 30px;
+    padding:10px;
+    padding-left:30px;
+    margin-top: 10px;
+    font-size: 20px;
+    color:rgb(142, 142, 142);
+}
+
+.activity-form > div > label {
+    color:rgb(100, 100, 100);
+}
+
+.activity-form > div > input:focus{
+    outline-width: 0px;
+}
+
+.submit-section{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+
+#warning{
+   color: rgb(114, 114, 114);
+}
+
+.submit-section > button{
+    width:40%;
+    border:none;
+    border-radius: 30px;
+    padding: 10px;
+    background-color: white;
+    color: rgb(114, 114, 114);
+    font-weight: bold;
+    cursor:pointer;
+    margin-right: 20px;
+    transition: all 0.25s;
+}
+
+.submit-section > button:hover{
+    background-color: rgb(219, 219, 219);
+}
+
+.date-select{
+    height: 160%;
+    width:100%;
+    position: absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    background-color:rgba(0, 0, 0, 0.682);
+}
+
+.close-button {
+    /* background-color: rgba(0, 0, 0, 0.481); */
+    border:none;
+    color:white;
+    margin:10px;
+    float:right;
+    width:20px;
+    cursor:pointer
+}

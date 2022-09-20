@@ -1,0 +1,92 @@
+.top-bar{
+    background-color: rgb(86, 182, 224);
+    height:100px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    color:white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.top-bar > a{
+    text-decoration: none;
+    color:white;
+    font-size: 20px;
+}
+
+.top-bar > button{
+    border:none;
+    background: none;
+    text-decoration: none;
+    color:white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor:pointer
+}
+
+.content{
+    display: flex;
+    height:80%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.option{
+    height:450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width:400px;
+    padding-bottom: 50px;
+    background-color: rgb(234, 239, 243);
+    border-radius: 30px;
+    transition:all 0.25s;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    color:rgb(170, 181, 190)
+}
+
+.option:hover{
+    background-color: rgb(219, 223, 226);
+    color:rgb(130, 137, 142)
+}
+
+.option-icon{
+    filter: invert(40%) sepia(10%) saturate(200%)
+    hue-rotate(160deg) brightness(180%) 
+    contrast(100%);
+    margin:20px;
+    transition:all 0.25s;
+}
+
+.option:hover > img{
+    filter: invert(40%) sepia(10%) saturate(200%)
+    hue-rotate(160deg) brightness(140%) 
+    contrast(100%);
+}
+
+.middle-line{
+    width:0%;
+    height: 80%;
+    border:1px solid rgb(214, 222, 228);
+}
+
+.placeholder{
+    font-size: 30px;
+    color:rgb(137, 137, 137);
+    font-weight:bold;
+    width:700px;
+    margin: auto;
+}
