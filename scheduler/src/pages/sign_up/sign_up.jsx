@@ -5,6 +5,8 @@ import Axios from 'axios';
 import bcrypt from 'bcryptjs'
 import Cookies from 'universal-cookie'
 import ls from 'localstorage-slim';
+import setPath from '../../redux/path/action';
+import { connect } from 'react-redux';
 
 const salt = bcrypt.genSaltSync(10, (err, salt) => {
   console.log("salt = ", salt)
@@ -13,14 +15,25 @@ const cookies = new Cookies()
 ls.config.encrypt = true
 console.log(ls.get("eml"));
 
-export default class Sign_up extends Component {
+
+const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+let token = ''
+function Create_token(){
+  for(let i = 0; i < 25; i++){
+    // this.setState({token: this.state.token += characters[Math.floor(Math.random() * characters.length)]})
+    token += characters[Math.floor(Math.random() * characters.length)]
+  }
+}
+
+class Sign_up extends Component {
   constructor(props){
     super(props);
     this.state = {
       email:'',
       username:'',
       password:'',
-      warning:false
+      warning:false,
+      token:''
     }
   }
   render() {
@@ -57,6 +70,10 @@ export default class Sign_up extends Component {
               const hashedPassword = bcrypt.hashSync(password, salt, (err, hash) => {
                 console.log(hash +  " = hash")
               })
+
+              Create_token()
+              this.props.setPath(token)
+              console.log("token: " + token)
               //localStorage.setItem('pasd', JSON.stringify(hashedPassword))
               console.log(hashedPassword)
               console.log(salt)
@@ -68,11 +85,12 @@ export default class Sign_up extends Component {
                 email:this.state.email,
                 username:this.state.username,
                 password:hashedPassword,
+                token:token
                 //salt:salt
-              }).then(data => {
-                data.data ? 
-                this.setState({warning:true}):
-                SetEmail(this.state.email)
+              })
+              .then(data => {
+                console.log("data: " + data.data)
+                !data.data && this.setState({warning:true})
               })
             }}>Sign up</button>
             {
@@ -89,8 +107,17 @@ export default class Sign_up extends Component {
   }
 }
 
-function SetEmail(email){
+function SetEmail(email, token){
   // localStorage.setItem('email', JSON.stringify(email))
   ls.set('eml', email)
-  window.history.go(-2)
+  ls.set('tkn', token)
+  //window.history.go(-2)
 }
+
+function mapDispatchToProps(dispatch){
+  return{
+    setPath: payload => dispatch(setPath(payload))
+  }
+}
+
+export default connect(null, mapDispatchToProps) (Sign_up)

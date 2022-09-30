@@ -3,6 +3,7 @@ import "./schedule.css"
 import { connect } from 'react-redux'
 import { scheduleFor } from '../../redux/schedule-reducer/scheduleFor'
 import Axios from 'axios'
+import spaces from "../../spaces.json"
 //import { timingSafeEqual } from 'crypto'
 //import { threadId } from 'worker_threads'
 
@@ -12,12 +13,15 @@ class Schedule extends React.Component {
         this.state = {
             hour:'',
             space:'',
-            hour_selected:false
+            hour_selected:false,
+            desired_space:''
         }
     }
   render() {
     console.log(this.props.spaces)
     console.log(this.state)
+
+    //console.log("spatii" + spatii.length)
      
     const start_hour = parseFloat(this.state.hour)
     const finish_hour = start_hour + 1
@@ -25,6 +29,8 @@ class Schedule extends React.Component {
     console.log(start_hour + ":00" + " - " + finish_hour + ":00")
 
     const myInterval = start_hour + ":00" + " - " + finish_hour + ":00"
+
+
 
     if(this.state.hour)
         if(!this.state.hour_selected)
@@ -41,7 +47,7 @@ class Schedule extends React.Component {
                 Programeaza pentru {this.props.date}:
             </div> 
             <div>
-                (introdu un numar intre 8 si 16)<input onChange = {(e) => {
+                Ora (introdu un numar intre 8 si 16)<input className='interval' onChange = {(e) => {
                     this.setState({hour:e.target.value})
                 }} id = "hour-interval" type="number" />
             </div>
@@ -56,48 +62,52 @@ class Schedule extends React.Component {
             }}>
                 Clear
             </button>
+            <input className='space-search' type="text" onChange={(e) => this.setState({desired_space:e.target.value})} placeholder='Search for your desired space' />
         </div>
         <div className = "spaces">
             {
                 this.state.hour_selected ? 
-                Array.from(Array(20)).map((item, index) =>{
-                    let ocupied = false
-                    this.props.spaces.map((item) => {       
-                        console.log(item.time_interval)
-                        if(item.space == `Space ${index}` && item.time_interval == myInterval){
-                            console.log(item.space)
-                            ocupied = true
-                            return
-                        }
-                    })
-                    return(
-                        ocupied ? 
-                        <div id={"Space" + index} className = "ocupied">
-                            Space{index}
-                        </div>
-                        :
-                        <div id={"Space" + index} className = "unocupied" onClick = {() => {
-                            for(let i = 0; i<20; i++){
-                                if(i == index)
-                                    document.getElementById("Space" + i).style.backgroundColor = "rgb(148, 148, 148)"
-
-                                else
-                                    document.getElementById("Space" + i).style.background = "none"
+                spaces.map((item, index) =>{
+                    if(spaces[index].name.toLowerCase().match(this.state.desired_space.toLowerCase())){
+                        let ocupied = false
+                        this.props.spaces.map((item) => {       
+                            console.log(item.time_interval)
+                            if(item.space == spaces[index].name && item.time_interval == myInterval){
+                                console.log(item.space)
+                                ocupied = true
+                                return
                             }
-                            this.props.scheduleFor({
-                                space:"Space " + index,
-                                hour:this.state.hour
-                            })
-                        }}>
-                            Space{index}
-                        </div>
-                    )
-                })
+                        })
+                        return(
+                            ocupied ? 
+                            <div id={"Space" + index} className = "ocupied">
+                                {spaces[index].name}
+                            </div>
+                            :
+                            <div id={"Space" + index} className = "unocupied" onClick = {() => {
+                                for(let i = 0; i<spaces.filter(item => item.name.includes(this.state.desired_space)).length; i++){
+                                    if(i == index)
+                                        document.getElementById("Space" + i).style.backgroundColor = "rgb(148, 148, 148)"
+
+                                    else
+                                        document.getElementById("Space" + i).style.background = "none"
+                                }
+                                this.props.scheduleFor({
+                                    space:spaces[index].spaces,
+                                    hour:this.state.hour
+                                })
+                            }}>
+                                {spaces[index].name}
+                            </div>
+                        )
+                    }
+                }
+                )
                 :
-                Array.from(Array(20)).map((item, index) =>{
+                spaces.map((item, index) =>{
                     return(
                         <div className = "ocupied">
-                            Space{index}
+                            {spaces[index].name}
                         </div>
                     )
                 })

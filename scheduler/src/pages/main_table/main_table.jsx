@@ -36,61 +36,34 @@ export default class main_table extends React.Component {
       <Layout>
         <table className = "list">
           <thead>
-            <tr>
-              <td><input placeholder='Activitate' onChange = {(e) => {
+            <tr className='head'>
+              <td><input placeholder='Activity' onChange = {(e) => {
                 this.setState({nume_activitate:e.target.value})
               }} className = "criteria-input" type="text" /></td>
-              <td><input placeholder='Data' onChange = {(e) => {
+              <td><input placeholder='Date' onChange = {(e) => {
                 this.setState({data:e.target.value})
               }} className = "criteria-input" type="text" /></td>
-              <td><input placeholder='Nr.gr' onChange = {(e) => {
-                this.setState({nr_gr:e.target.value})
-              }} className = "criteria-input" type="text" /></td>
-              <td><input placeholder='Nr.det' onChange = {(e) => {
-                this.setState({nr_det:e.target.value})
-              }} className = "criteria-input" type="text" /></td>
-              <td><input placeholder='Coordonator'onChange = {(e) => {
-                this.setState({coord:e.target.value})
-              }} className = "criteria-input" type="text" /></td>
-              <td><input placeholder='Regim' onChange = {(e) => {
-                this.setState({reg:e.target.value})
-              }} className = "criteria-input" type="text" /></td>
-              <td><input placeholder='Interval' onChange = {(e) => {
+              <td><input placeholder='Time' onChange = {(e) => {
                 this.setState({interval:e.target.value})
               }} className = "criteria-input" type="text" /></td>
-              <td><input placeholder='Parteneri' onChange = {(e) => {
-                this.setState({parteneri:e.target.value})
-              }} className = "criteria-input"type="text" /></td>
-              <td><input placeholder='Observatii' onChange = {(e) => {
-                this.setState({observatii:e.target.value})
-              }} className = "criteria-input" type="text" /></td>
-              <td><input placeholder='Etaj' onChange = {(e) => {
+              <td><input placeholder='Floor' onChange = {(e) => {
                 this.setState({etaj:e.target.value})
               }} className = "criteria-input" type="text" /></td>
-              <td><input placeholder='Spatiu' onChange = {(e) => {
+              <td><input placeholder='Space' onChange = {(e) => {
                 this.setState({spatiu:e.target.value})
               }} className = "criteria-input" type="text" /></td>
             </tr>
             <tr>
-              <td><b>Nume activitate</b></td>
-              <td><b>Data</b></td>
-              <td><b>Nr. gr</b></td>
-              <td><b>Nr. det</b></td>
-              <td><b>Coordonator</b></td>
-              <td><b>Regim</b></td>
-              <td><b>Interval orar</b></td>
-              <td><b>Parteneri</b></td>
-              <td><b>Observatii</b></td>
-              <td><b>Etaj</b></td>
-              <td><b>Spatiu</b></td>
+              <td><b>Activity name</b></td>
+              <td><b>Date</b></td>
+              <td><b>Time</b></td>
+              <td><b>Floor</b></td>
+              <td><b>Space</b></td>
             </tr>
           </thead>
           {
             this.state.data_list ? 
               this.state.data_list.filter(item => item.activity_name.toLowerCase().includes(this.state.nume_activitate.toLowerCase()) && item.day.toLowerCase().includes(this.state.data.toLowerCase())
-               && item.day.toLowerCase().includes(this.state.data.toLowerCase()) && item.Nr_gr.toLowerCase().includes(this.state.nr_gr.toLowerCase()) && item.detained_nr.toLowerCase().includes(this.state.nr_det.toLowerCase())
-               && item.coordinator.toLowerCase().includes(this.state.coord.toLowerCase()) && item.regime.toLowerCase().includes(this.state.reg.toLowerCase())
-               && item.afiliates.toLowerCase().includes(this.state.parteneri.toLowerCase()) && item.notes.toLowerCase().includes(this.state.observatii.toLowerCase())
                && item.space.toLowerCase().includes(this.state.spatiu.toLowerCase()) && item.floor.toLowerCase().includes(this.state.etaj.toLowerCase())
                && item.time_interval.includes(this.state.interval)).map(item => 
                 {return(
@@ -98,13 +71,7 @@ export default class main_table extends React.Component {
                     <tr>
                       <td>{item.activity_name}</td>
                       <td>{item.day}</td>
-                      <td>{item.Nr_gr}</td>
-                      <td>{item.detained_nr}</td>
-                      <td>{item.coordinator}</td>
-                      <td>{item.regime}</td>
                       <td>{item.time_interval}</td>
-                      <td>{item.afiliates}</td>
-                      <td>{item.notes}</td>
                       <td>{item.floor}</td>
                       <td>{item.space}</td>
                     </tr>

@@ -64,33 +64,7 @@ class activity extends React.Component {
               }} placeholder = "Introdu data" name="" id="" />
           </div>
   
-          <div>
-            <label htmlFor="activity">Nr.gr</label>
-            <input onChange={(e) => {
-              this.setState({nr_gr:e.target.value})
-            }} type="number" placeholder='Introdu numarul de grup' name="" id="" />
-          </div>
-  
-          <div> 
-            <label htmlFor="activity">Numar detinut</label>
-            <input onChange={(e) => {
-              this.setState({det_nr:e.target.value})
-            }} type="number" placeholder='Introdu numarul detinutului' name="" id="" />
-          </div>
-  
-          <div>
-            <label htmlFor="activity">Regim</label>
-            <input onChange={(e) => {
-              this.setState({regime:e.target.value})
-            }} type="text" placeholder='Introdu regimul' name="" id="" />
-          </div>
-  
-          <div>
-            <label htmlFor="activity">Coordonator</label>
-            <input onChange={(e) => {
-              this.setState({coord:e.target.value})
-            }} type="text" placeholder='Introdu numele coordonatorului' name="" id="" />
-          </div>
+          
           <div>
             <label htmlFor="activity">Interval orar</label>
             <input value = {this.props.hour ? this.props.hour : ""}  onChange={(e) => {
@@ -104,18 +78,6 @@ class activity extends React.Component {
               this.setState({duration:e.target.value})
             }} type="text" placeholder='Insert activity name' name="" id="" />
           </div> */}
-          <div>
-            <label htmlFor="activity">Parteneri</label>
-            <input onChange={(e) => {
-              this.setState({afiliates:e.target.value})
-            }} type="text" placeholder='Introdu partenerii' name="" id="" />
-          </div>
-          <div>
-            <label htmlFor="activity">Observatii</label>
-            <input onChange={(e) => {
-              this.setState({notes:e.target.value})
-            }} type="text" placeholder='Introdu o observatie' name="" id="" />
-          </div>
           <div>
             <label htmlFor="activity">Etaj</label>
             <input onChange={(e) => {
@@ -135,9 +97,7 @@ class activity extends React.Component {
             <button onClick = {(e) => {
                 e.preventDefault()
               if(this.state.activityname && this.state.day && 
-                this.state.nr_gr && this.state.det_nr && this.state.regime && 
-                this.state.coord && this.state.time_interval &&
-                this.state.afiliates && this.state.notes && this.state.floor
+                this.state.time_interval &&this.state.floor
                 && this.state.space){
 
                 Axios.post("http://localhost:3005/schedule", {

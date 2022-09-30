@@ -66,13 +66,14 @@
 }
 
 .date-select{
-    height: 160%;
+    position: fixed;
+    height: 100%;
     width:100%;
-    position: absolute;
     top:0;
     left:0;
     bottom:0;
     background-color:rgba(0, 0, 0, 0.682);
+    overflow-y: scroll;
 }
 
 .close-button {

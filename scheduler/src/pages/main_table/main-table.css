@@ -24,6 +24,11 @@
 
 .list > thead > tr > td{
     /* border: 1px solid; */
+    padding: 10px;
+}
+
+.list > thead > .head > td{
+    /* border: 1px solid; */
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -39,12 +44,13 @@
     background-color: rgb(235, 235, 235);
     color:rgb(128, 128, 128);
     padding: 10px;
-    width:90%
+    width:100%
 }
 
 .list > tbody > tr > td{
     /* border-bottom: 1px solid; */
     padding: 10px;
+    height:70px
     /* width: 30%; */
 }
 

@@ -32,7 +32,7 @@ class Chalendar extends React.Component {
         date.getMonth() + 2, 0).getDate()
     const last_month_days = new Date(date.getFullYear(),
         date.getMonth(), 0).getDate();  
-    const months = ["Ianuarie", "Februarie", "Martie", "Aprilie", "Mai", "Iunie", "Iulie", "August", "Septembrie", "Octombrie", "Noiembrie", "Decembrie"]
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const current_month = new Date(date.getFullYear(), date.getMonth() + 1).getMonth()
     const current_year = new Date(date.getFullYear(),0).getFullYear()
     
