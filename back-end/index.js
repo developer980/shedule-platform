@@ -17,22 +17,16 @@ const db = mysql.createConnection({
     database:'schedule-schema-test'
 })
 
+
 app.post("/schedule", (req, res) => {
     const activityname = req.body.activityname
     const day = req.body.day
-    const nr_gr = req.body.nr_gr
-    const nr_det = req.body.nr_det
-    const reg = req.body.reg
-    const coord = req.body.coord
     const time_interval = req.body.time_interval
-    const duration = req.body.duration
-    const afiliates = req.body.afiliates
-    const notes = req.body.notes
     const floor = req.body.floor
     const space = req.body.space
 
-    db.query("INSERT INTO activities VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", 
-    [activityname, day, nr_gr, nr_det, reg, coord, time_interval, duration, afiliates, notes, floor, space], 
+    db.query("INSERT INTO activities VALUES(?,?,?,?,?)", 
+    [activityname, day, time_interval, space, floor], 
     (err, result) => {
         if(err) console.log(err)
         else {res.send("Succesfully sent")}
@@ -43,47 +37,86 @@ app.post("/post_user", (req, res) => {
     const email = req.body.email
     const username = req.body.username
     const password = req.body.password
-    let token = '';
+    const token = req.body.token
+    // let token = '';
 
-    for(let i = 0; i < 25; i++){
-        token += characters[Math.floor(Math.random() * characters.length)]
-    }
+    // for(let i = 0; i < 25; i++){
+    //     token += characters[Math.floor(Math.random() * characters.length)]
+    // }
 
     const transport = nodemailer.createTransport({
         service:'hotmail',
         auth: {
-            user: 'confirm.anp2002@outlook.com',
-            pass: 'confirmAnp2002',
+            user: 'confirm.test@outlook.com',
+            pass: 'confirm_1440',
         }
     })
+    console.log(token)
 
-    const mailOptions = {
-        from:"confirm.anp2002@outlook.com",
-        to:"tudordin2002@gmail.com",
-        subject:'Email confirmation',
-        html: `<div>
-            <b>Te rugam sa iti confirmi adresa de email</b>
-            <button>Confirma</button>
-        </div>`
-    }
-
-    transport.sendMail(mailOptions, (err, result) => {
-        err ? console.log(err):
-        console.log("Email succesfully sent")
-    })
-
-    const salt = req.body.salt
     
+    // function Sign_up(email, username, password, token){
     db.query(`SELECT * FROM users WHERE email = "${email}"`, (err, result) => {
         err && console.log(err)
-        result.length ? res.send("This email is already taken")
+        console.log("users " + result)
+        result.length ? res.send(null)
         :
-        db.query("INSERT INTO users values(?, ?, ?, ?)", [email, username, password, token],
+        db.query("INSERT INTO pending_users values(?, ?, ?, ?)", [email, username, password, token],
         (err, result) => {
             err && console.log(err)
-            result && res.send(null)
+            result && res.send({token:token})
+
+            const mailOptions = {
+                from:"confirm.test@outlook.com",
+                to:email,
+                subject:'Email confirmation',
+                html: `<div>
+                    <b>Te rugam sa iti confirmi adresa de email</b>
+                    <a href = "${`http://localhost:3000/=>${token}`}">Confirma</a>
+                </div>`
+            }
+        
+        
+            transport.sendMail(mailOptions, (err, result) => {
+                err ? console.log(err):
+                res.send("email sent")
+            })
         })
     })
+    // }
+
+    const salt = req.body.salt
+})
+
+app.post("/verify_user", (req, res) => {
+    const token = req.body.token
+    console.log(token)
+    db.query(`SELECT * FROM pending_users WHERE token = "${token}"`, (err, result) => {
+        err && console.log(err)
+        
+        result[0] && 
+        db.query("INSERT INTO users values(?, ?, ?)", [result[0].email, result[0].username, result[0].pass],
+                                (err, succes) => {
+                                    err && console.log(err)
+                                    // succes && res.send(result)
+                                    if(succes){
+                                        db.query(`DELETE FROM pending_users WHERE token = "${token}"`, err => {
+                                            err ? console.log(err) :
+                                            res.send(result)
+                                        })
+                                    }
+                                })
+    })
+})
+
+app.post("/confirm_user", (req,res) => {
+    const email = req.body.email
+    const username = req.body.username
+    const password = req.body.password
+    db.query("INSERT INTO pending_users values(?, ?, ?, ?)", [email, username, password, token],
+        (err, result) => {
+            err && console.log(err)
+            result && res.send({token:token})
+        })
 })
 
 app.post('/get_user', (req, res) => {
