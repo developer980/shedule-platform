@@ -17,6 +17,20 @@ const db = mysql.createConnection({
     database:'schedule-schema-test'
 })
 
+const transport = nodemailer.createTransport({
+    service:'hotmail',
+    auth: {
+        user: 'confirm.test@outlook.com',
+        pass: 'confirm_1440',
+    }
+})
+const transport_1 = nodemailer.createTransport({
+    service:'hotmail',
+    auth: {
+        user: 'test13122333@outlook.com',
+        pass: 'pass_1490',
+    }
+})
 
 app.post("/schedule", (req, res) => {
     const activityname = req.body.activityname
@@ -44,13 +58,6 @@ app.post("/post_user", (req, res) => {
     //     token += characters[Math.floor(Math.random() * characters.length)]
     // }
 
-    const transport = nodemailer.createTransport({
-        service:'hotmail',
-        auth: {
-            user: 'confirm.test@outlook.com',
-            pass: 'confirm_1440',
-        }
-    })
     console.log(token)
 
     
@@ -66,7 +73,7 @@ app.post("/post_user", (req, res) => {
             result && res.send({token:token})
 
             const mailOptions = {
-                from:"confirm.test@outlook.com",
+                from:"test13122333@outlook.com",
                 to:email,
                 subject:'Email confirmation',
                 html: `<div>
@@ -76,7 +83,7 @@ app.post("/post_user", (req, res) => {
             }
         
         
-            transport.sendMail(mailOptions, (err, result) => {
+            transport_1.sendMail(mailOptions, (err, result) => {
                 err ? console.log(err):
                 res.send("email sent")
             })
@@ -94,17 +101,62 @@ app.post("/verify_user", (req, res) => {
         err && console.log(err)
         
         result[0] && 
-        db.query("INSERT INTO users values(?, ?, ?)", [result[0].email, result[0].username, result[0].pass],
-                                (err, succes) => {
-                                    err && console.log(err)
-                                    // succes && res.send(result)
-                                    if(succes){
-                                        db.query(`DELETE FROM pending_users WHERE token = "${token}"`, err => {
-                                            err ? console.log(err) :
-                                            res.send(result)
-                                        })
-                                    }
-                                })
+        db.query('INSERT INTO users values(?, ?, ?, "")', [result[0].email, result[0].username, result[0].pass],
+            (err, succes) => {
+                err && console.log(err)
+                // succes && res.send(result)
+                if(succes){
+                    db.query(`DELETE FROM pending_users WHERE token = "${token}"`, err => {
+                        err ? console.log(err) :
+                        res.send("Email sent")
+                    })
+                }
+            })
+    })
+})
+
+app.post("/verify_path", (req, res) => {
+    const token = req.body.token
+    db.query(`SELECT * FROM users WHERE token = ?`, [token], (err, result) => {
+        err && console.log(err)
+        result[0] && res.send(result[0])
+    })
+})
+
+app.post("/change_password", (req, res) => {
+    const token = req.body.token
+    const password = req.body.password
+
+    //db.query('INSERT INTO users values (?, ?, ?, ?)', ['tudorcernat22@gmail.com', "", password, token])
+
+    db.query('UPDATE users SET password = ?, token = ?  WHERE token = ?', [password, null, token], (err, result) => {
+        err && console.log(err)
+        res && res.send(result)
+    })
+})
+
+app.post("/password_reset", (req, res) => {
+    const email = req.body.email;
+    const token = req.body.token;
+
+    db.query("UPDATE users SET token = ? WHERE email = ?", 
+    [token, email], (err, result) => {
+        err && console.log(err)
+    })
+
+    const mail_options = {
+        from:"test13122333@outlook.com",
+        to:email,
+        subject:'test',
+        html: `<div>
+            <b>Type this link to reset your password</b>
+            <a href = "${`http://localhost:3000/reset=>${token}`}">Confirma</a>
+        </div>`
+    }
+
+    transport_1.sendMail(mail_options, (err, res) => {
+        err && console.log(err);
+        
     })
 })
 
