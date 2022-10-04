@@ -7,8 +7,10 @@ import Sign_up from './pages/sign_up/sign_up';
 import Activity from './pages/activity-form/activity';
 import Log_in from './pages/log_in/log_in';
 import { connect } from 'react-redux';
+import Password_reset from './pages/password_reset/password_reset';
 import Confirmation from './pages/confirmation';
 import React from 'react';
+import New_pasword from './pages/password_reset/new_pasword';
 
 class App extends React.Component{
   constructor(props){
@@ -31,6 +33,8 @@ class App extends React.Component{
           <Route path = '/log_in' component={Log_in}/>
           <Route path = '/activity' component={Activity}/>
           <Route path = {'/=>:token'}component={Confirmation}/>
+          <Route path = {'/password_reset'}component={Password_reset}/>
+          <Route path = {'/reset=>:token'} component = {New_pasword}/>
         </Switch>
     );
   }

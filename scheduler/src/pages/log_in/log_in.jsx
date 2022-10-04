@@ -43,10 +43,12 @@ export default class Log_in extends React.Component {
                 e.preventDefault()
                   // const hash = crypto.createHash('sha256', 'vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3').update(this.state.password).digest('hex')
                   // console.log(hash)
+                  console.log(bcrypt.hashSync(this.state.password))
                  Axios.post("http://localhost:3005/get_user", {
                     email:this.state.email,
                     password:this.state.password
                   }).then(data => {
+                    console.log("ba")
                     console.log(data.data)
                       // data.data ? 
                       // console.log("succesfully logged in")
@@ -54,7 +56,6 @@ export default class Log_in extends React.Component {
                       // console.log("wrong credentials")
 
                       data.data ?
-                        //console.log(data.data[0].password)
                         bcrypt.compare(this.state.password, data.data[0].password, (err, result) => {
                           err && console.log(err)
                           result ? SetEmail(this.state.email)
@@ -73,6 +74,9 @@ export default class Log_in extends React.Component {
                   :
                   null
               }
+              <Link to = "/password_reset">
+                Forgot your password?
+              </Link>
             <div>
               Don't have an account? <Link to = "/sign_up">Sign up</Link>
             </div>
