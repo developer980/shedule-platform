@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import Axios from 'axios'
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import "./confirm.css"
 
 export default function Confirmation() {
   const [user, returnUser] = useState(0)
@@ -21,6 +23,6 @@ export default function Confirmation() {
       }
   )
 
-  return user ? <div>yes</div> : <div>no</div>
+  return user ? <div className = "confirmation">Your account has been created, you can <Link to = "/log_in">log in </Link> now.</div> : <div className = "confirmation">Unfortunately the page you are looking for does not exist. :(</div>
 
 }

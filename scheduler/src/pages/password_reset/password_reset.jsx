@@ -15,9 +15,10 @@ let token = '';
 for (let i = 0; i < 25; i++){
     token += characters[Math.floor(Math.random() * characters.length)]
 }
-export default connect(null, mapDispatchToProps) (function Password_reset() {
+export default function Password_reset() {
 
     const [email, getEmail] = useState('')
+    const [sent, emailSent] = useState(0)
 
     console.log(email)
     return (
@@ -26,11 +27,16 @@ export default connect(null, mapDispatchToProps) (function Password_reset() {
             getEmail(e.target.value)
         }} placeholder='email@example.com' />
         <button onClick={() => {
+            emailSent(1)
             Axios.post("http://localhost:3005/password_reset", {
                 email: email,
                 token:token
             })
         }} className = "submit">Send email</button>
+        
+        { sent ? <div className = "send-confirmation">
+                        An email with the password reset link has been send to your adress, please check your email
+                    </div> : null}
         </div>
     )
-})
+}

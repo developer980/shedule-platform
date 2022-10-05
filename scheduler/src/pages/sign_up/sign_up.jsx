@@ -33,7 +33,8 @@ class Sign_up extends Component {
       username:'',
       password:'',
       warning:false,
-      token:''
+      token:'',
+      sent:false
     }
   }
   render() {
@@ -74,12 +75,8 @@ class Sign_up extends Component {
               Create_token()
               this.props.setPath(token)
               console.log("token: " + token)
-              //localStorage.setItem('pasd', JSON.stringify(hashedPassword))
               console.log(hashedPassword)
               console.log(salt)
-              // !localStorage.getItem('pasd') && localStorage.setItem('pasd', JSON.stringify(hashedPassword))
-              // cookies.set("password", hashedPassword, {path: "/"})
-              // console.log("Cookie data = " + cookies.get("password"))
 
               Axios.post("http://localhost:3005/post_user", {
                 email:this.state.email,
@@ -90,10 +87,11 @@ class Sign_up extends Component {
               })
               .then(data => {
                 console.log("data: " + data.data)
-                !data.data && this.setState({warning:true})
+                !data.data ? this.setState({
+                  warning:true}) : this.setState({sent:true})
               })
             }}>Sign up</button>
-            {
+              {
                   this.state.warning ?
                   <div>
                       Email already taken
@@ -101,6 +99,14 @@ class Sign_up extends Component {
                   :
                   null
               }
+              {
+                this.state.sent ? 
+                <div className = "send-confirmation">
+                  An email was sent to your address to confirm your account
+                </div> :
+                null
+              }
+              
           </form>
         </Layout>
     )
@@ -108,10 +114,8 @@ class Sign_up extends Component {
 }
 
 function SetEmail(email, token){
-  // localStorage.setItem('email', JSON.stringify(email))
   ls.set('eml', email)
   ls.set('tkn', token)
-  //window.history.go(-2)
 }
 
 function mapDispatchToProps(dispatch){

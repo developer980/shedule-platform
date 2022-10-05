@@ -88,5 +88,7 @@ a{
     color:rgb(137, 137, 137);
     font-weight:bold;
     width:700px;
+    text-align: center;
     margin: auto;
+    margin-top: 50px;
 }

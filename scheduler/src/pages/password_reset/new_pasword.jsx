@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import bcrypt from 'bcryptjs'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 
 const salt = bcrypt.genSaltSync(10, (err, res) => console.log(res))
@@ -21,6 +22,7 @@ export default function New_pasword() {
   
   const [password, setPassword] = useState('')  
   const [user, setUser] = useState(0)
+  const [reset, is_password_reset] = useState(0)
   
   console.log(password)
   return (
@@ -36,10 +38,17 @@ export default function New_pasword() {
         axios.post("http://localhost:3005/change_password", {
           token:token,
           password:hashedPassword
+        }).then(result => {
+          result && is_password_reset(1)
         })
       }}>
         Submit
       </button>
+      { 
+        reset ?  <div>
+          Your password has been changed <Link to = "/"> Return to the main page </Link>?
+        </div> : null
+      }
     </div>:
     <div>No</div>
   )

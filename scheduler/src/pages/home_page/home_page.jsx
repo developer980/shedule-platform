@@ -43,8 +43,8 @@ export default function Home_page() {
                 </Link>
             </div> 
         : 
-        <div className = "placeholder">
-            <Link to = "/log_in">Log in  </Link> 
+        <div className = "placeholder"> 
+            Please <Link to = "/log_in">log in  </Link> 
             to view and schedule activities
          </div>
     }

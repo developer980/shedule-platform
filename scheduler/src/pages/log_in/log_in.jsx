@@ -13,7 +13,8 @@ export default class Log_in extends React.Component {
       this.state = {
         email:'',
         password:'',
-        warning:false
+        warning:false,
+        email_sent:false
       }
     }
     render() {
@@ -41,19 +42,13 @@ export default class Log_in extends React.Component {
               }}/>
               <button className = "submit" onClick={(e) => {
                 e.preventDefault()
-                  // const hash = crypto.createHash('sha256', 'vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3').update(this.state.password).digest('hex')
-                  // console.log(hash)
                   console.log(bcrypt.hashSync(this.state.password))
-                 Axios.post("http://localhost:3005/get_user", {
-                    email:this.state.email,
-                    password:this.state.password
-                  }).then(data => {
+                  Axios.post("http://localhost:3005/get_user", {
+                      email:this.state.email,
+                      password:this.state.password
+                    }).then(data => {
                     console.log("ba")
                     console.log(data.data)
-                      // data.data ? 
-                      // console.log("succesfully logged in")
-                      // :
-                      // console.log("wrong credentials")
 
                       data.data ?
                         bcrypt.compare(this.state.password, data.data[0].password, (err, result) => {

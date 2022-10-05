@@ -1,0 +1,12 @@
+.confirmation{
+    background-color: rgb(230, 233, 236);
+    width:60%;
+    max-width: 500px;
+    margin: auto;
+    margin-top: 100px;
+    text-align: center;
+    padding:20px;
+    border-radius: 10px;
+    border:1px solid rgb(204, 206, 209);
+    color:rgb(97, 99, 103)
+}

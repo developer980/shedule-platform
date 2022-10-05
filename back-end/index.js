@@ -129,7 +129,8 @@ app.post("/change_password", (req, res) => {
 
     //db.query('INSERT INTO users values (?, ?, ?, ?)', ['tudorcernat22@gmail.com', "", password, token])
 
-    db.query('UPDATE users SET password = ?, token = ?  WHERE token = ?', [password, null, token], (err, result) => {
+    db.query('UPDATE users SET password = ?, token = ?  WHERE token = ?', 
+    [password, null, token], (err, result) => {
         err && console.log(err)
         res && res.send(result)
     })
@@ -199,7 +200,8 @@ app.get("/get_dates", (req, res) => {
 
 app.post('/get_spaces', (req, res) => {
     const date = req.body.date
-    db.query(`SELECT space, time_interval FROM activities WHERE day = "${date}"`, (err, result) => {
+    db.query(`SELECT space, time_interval FROM activities WHERE day = ?`
+    [date], (err, result) => {
         err && console.log(err)
         res.send(result)
     })
