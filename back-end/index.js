@@ -40,7 +40,7 @@ app.post("/schedule", (req, res) => {
     const space = req.body.space
 
     db.query("INSERT INTO activities VALUES(?,?,?,?,?)", 
-    [activityname, day, time_interval, space, floor], 
+    [activityname, day, time_interval, floor, space], 
     (err, result) => {
         if(err) console.log(err)
         else {res.send("Succesfully sent")}
@@ -127,8 +127,6 @@ app.post("/change_password", (req, res) => {
     const token = req.body.token
     const password = req.body.password
 
-    //db.query('INSERT INTO users values (?, ?, ?, ?)', ['tudorcernat22@gmail.com', "", password, token])
-
     db.query('UPDATE users SET password = ?, token = ?  WHERE token = ?', 
     [password, null, token], (err, result) => {
         err && console.log(err)
@@ -189,7 +187,7 @@ app.get("/get_activities", (req, res) =>{
     })
 })
 
-app.get("/get_dates", (req, res) => {
+app.post("/get_dates", (req, res) => {
     db.query("SELECT day FROM activities", (err, result) => {
         !err ? 
         res.send(result) 
@@ -200,10 +198,20 @@ app.get("/get_dates", (req, res) => {
 
 app.post('/get_spaces', (req, res) => {
     const date = req.body.date
-    db.query(`SELECT space, time_interval FROM activities WHERE day = ?`
-    [date], (err, result) => {
+    console.log(date)
+    const time_interval = req.body.time_interval
+    db.query(`SELECT space, time_interval FROM activities WHERE day = ?`, [date], (err, result) => {
         err && console.log(err)
+         console.log("result " + result)
         res.send(result)
+    })
+})
+
+app.post("/delete_activity", (req, res) => {
+    const day = req.body.day
+    const time_interval = req.body.time_interval
+    db.query("DELETE FROM activities WHERE day = ? AND time_interval = ?", [day, time_interval], (err, result) => {
+        err && console.log(err)
     })
 })
 
