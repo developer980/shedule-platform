@@ -1,6 +1,7 @@
 const initialState = {
     space:"",
-    hour:''
+    hour:'',
+    floor:''
 }
 
 export function schedule_reducer(state = initialState, action){
@@ -14,6 +15,7 @@ export function schedule_reducer(state = initialState, action){
                     ...state,
                     space:action.payload.space,
                     hour:start_hour + ":00" + " - " + finish_hour + ":00",
+                    floor: "Floor " + action.payload.floor
                 }
             }
             else
@@ -21,6 +23,7 @@ export function schedule_reducer(state = initialState, action){
                     ...state,
                     space:action.payload.space,
                     hour:"",
+                    floor: "Floor " + action.payload.floor
                 }
         default:
             return {

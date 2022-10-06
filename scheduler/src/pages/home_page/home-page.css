@@ -58,6 +58,24 @@ a{
     color:rgb(170, 181, 190)
 }
 
+@media (max-width:1300px),(max-height: 700px){
+    .option{
+        height:250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width:200px;
+        padding-bottom: 50px;
+        background-color: rgb(234, 239, 243);
+        border-radius: 30px;
+        transition:all 0.25s;
+        text-align: center;
+        font-size: 25px;
+        font-weight: bold;
+        color:rgb(170, 181, 190)
+    }
+}
+
 .option:hover{
     background-color: rgb(219, 223, 226);
     color:rgb(130, 137, 142)

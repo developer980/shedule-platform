@@ -13,18 +13,12 @@ class activity extends React.Component {
     this.state = {
       activityname:"",
       day:"",
-      nr_gr:"",
-      det_nr:"",
-      regime:"",
       coord:"",
       time_interval:"",
-      afiliates:"",
-      notes:"",
       floor:"",
       space:"",
       show_chalendar:false
     }
-    window.activity_comp = this;
   }
 
   render() {
@@ -34,6 +28,7 @@ class activity extends React.Component {
     this.state.day != this.props.final_date && this.setState({day:this.props.final_date})
     this.state.space != this.props.space && this.setState({space:this.props.space})
     this.state.time_interval != this.props.hour && this.setState({time_interval:this.props.hour})
+    this.state.floor != this.props.floor && this.setState({floor:this.props.floor})
 
     console.log(parseFloat(this.props.hour + 1))
 
@@ -41,17 +36,18 @@ class activity extends React.Component {
       <Layout>
         <form action="" className = "activity-form">
           <div>
-            <label htmlFor="activity">Numele activitatii</label>
+            <label htmlFor="activity">Activity name</label>
             <input onChange={(e) => {
               this.setState({activityname:e.target.value})
-            }} type="text" placeholder='Introdu numele activitatii' name="" id="" />
+            }} type="text" placeholder='Insert the activity name' name="" id="" />
           </div>
   
           <div>
-            <label htmlFor="activity">Data</label>
+            <label htmlFor="activity">Date</label>
             <input onClick={(e) => {
-              if(!this.state.show_chalendar)
+              if(!this.state.show_chalendar){
                 this.setState({show_chalendar:true})
+              }
               else
                 this.setState({show_chalendar:false})
           
@@ -61,16 +57,16 @@ class activity extends React.Component {
                 ""
               } onChange = {(e) => {
                 this.setState({day:e.target.value})
-              }} placeholder = "Introdu data" name="" id="" />
+              }} placeholder = "Insert the date" name="" id="" />
           </div>
   
           
           <div>
-            <label htmlFor="activity">Interval orar</label>
+            <label htmlFor="activity">Time</label>
             <input value = {this.props.hour ? this.props.hour : ""}  onChange={(e) => {
               // this.setState({time_interval:e.target.value})
-              console.log("changed")
-            }} type="text" placeholder='Introdu intervalul orar' name="" id="" />
+              console.log("Time interval set to " + this.props.time_interval)
+            }} type="text" placeholder='Insert the time' name="" id="" />
           </div>
           {/* <div>
             <label htmlFor="activity">Duration</label>
@@ -79,16 +75,16 @@ class activity extends React.Component {
             }} type="text" placeholder='Insert activity name' name="" id="" />
           </div> */}
           <div>
-            <label htmlFor="activity">Etaj</label>
-            <input onChange={(e) => {
-              this.setState({floor:e.target.value})
-            }} type="text" placeholder='Introdu etajul' name="" id="" />
+            <label htmlFor="activity">Floor</label>
+            <input value = {this.props.floor ? this.props.floor : ""} onChange={(e) => {
+                console.log("Floor set to " + this.props.floor)
+            }} type="text" placeholder='Insert the floor' name="" id="" />
           </div>
           <div>
-            <label htmlFor="activity">Spatiu de desfasurare</label>
-            <input type = "text" placeholder = "Introdu spatiul" value = {
-              this.state.space ? this.state.space : ""} onChange={(e) => {
-              this.setState({space:e.target.value})
+            <label htmlFor="activity">Space</label>
+            <input  type = "text" placeholder = "Insert the space" value = {
+              this.props.space ? this.props.space : ""} onChange={(e) => {
+                console.log("Space set to " + this.props.space)
             }} name="" id="space" />
           </div>
 
@@ -103,13 +99,8 @@ class activity extends React.Component {
                 Axios.post("http://localhost:3005/schedule", {
                   activityname:this.state.activityname,
                   day:this.state.day,
-                  nr_gr:this.state.nr_gr,
-                  nr_det:this.state.det_nr,
-                  reg:this.state.regime,
                   coord:this.state.coord,
                   time_interval:this.state.time_interval,
-                  duration:this.state.duration,
-                  afiliates:this.state.afiliates,
                   notes:this.state.notes,
                   floor:this.state.floor,
                   space:this.state.space,
@@ -118,9 +109,9 @@ class activity extends React.Component {
               }
               else {document.getElementById("warning").style.display = "block"}
             }}>
-              Programeaza
+              Schedule
             </button>
-            <div id = "warning" style = {{display:"none"}}>Te rugam sa completezi toate campurile</div>
+            <div id = "warning" style = {{display:"none"}}>Please complete all the fields</div>
           </div>
         </form>
 
@@ -144,7 +135,8 @@ function mapStateToProps(state){
   return{
     final_date:state.date_reducer.date,
     space:state.schedule_reducer.space,
-    hour:state.schedule_reducer.hour
+    hour:state.schedule_reducer.hour,
+    floor:state.schedule_reducer.floor
   }
 }
 

@@ -2,6 +2,8 @@ import React from 'react'
 import Axios from 'axios'
 import "./main-table.css"
 import Layout from '../../components/layout/layout'
+import X from "../../icons/x.svg"
+import axios from 'axios'
 
 
 export default class main_table extends React.Component {
@@ -73,7 +75,8 @@ export default class main_table extends React.Component {
                       <td>{item.day}</td>
                       <td>{item.time_interval}</td>
                       <td>{item.floor}</td>
-                      <td>{item.space}</td>
+                      <td className = "last-section">{item.space}</td>
+                      <td><img onClick = {() => deleteActivity(item.day, item.time_interval)} src={X} className = "delete" /></td>
                     </tr>
                   </tbody>
                 )
@@ -84,4 +87,12 @@ export default class main_table extends React.Component {
       </Layout>
     )
   }
+}
+
+function deleteActivity(day, time_interval){
+  axios.post("http://localhost:3005/delete_activity", {
+    day: day,
+    time_interval:time_interval
+  })
+  window.location.reload()
 }

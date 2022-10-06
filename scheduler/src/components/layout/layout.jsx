@@ -1,9 +1,10 @@
 import React from 'react'
 import Header from '../header/header'
+import "./layout.css"
 
 export default function Layout(props) {
   return (
-    <div style = {{height:"120%", paddingBottom:"100px"}}>
+    <div className = "layout" style = {{height:"100%"}}>
         <Header/>
         {props.children }
     </div>

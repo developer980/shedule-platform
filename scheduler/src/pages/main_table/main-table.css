@@ -50,7 +50,7 @@
 .list > tbody > tr > td{
     /* border-bottom: 1px solid; */
     padding: 10px;
-    height:70px
+    height:70px;
     /* width: 30%; */
 }
 
@@ -64,3 +64,14 @@
 .criteria-input:focus{
     outline-width: 0px;
 }
+
+.delete{
+    width:10px;
+    cursor:pointer;
+}
+
+/* .last-section{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+} */

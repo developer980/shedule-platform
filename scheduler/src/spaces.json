@@ -1,94 +1,94 @@
 [
     {
         "name":"Space 1",
-        "floor":"parter"
+        "floor":"0"
     },
     {
         "name":"Space 2",
-        "floor":"parter"
+        "floor":"0"
     },
     {
         "name":"Space 3",
-        "floor":"parter"
+        "floor":"0"
     },
     {
         "name":"Space 4",
-        "floor":"parter"
+        "floor":"0"
     },
     {
         "name":"Space 5",
-        "floor":"parter"
+        "floor":"0"
     },
     {
         "name":"Space 6",
-        "floor":"parter"
+        "floor":"1"
     },
     {
         "name":"Space 7",
-        "floor":"parter"
+        "floor":"1"
     },
     {
         "name":"Space 8",
-        "floor":"parter"
+        "floor":"1"
     },
     {
         "name":"Space 9",
-        "floor":"parter"
+        "floor":"1"
     },
     {
         "name":"Space 10",
-        "floor":"parter"
+        "floor":"1"
     },
     {
         "name":"Space 11",
-        "floor":"parter"
+        "floor":"2"
     },
     {
         "name":"Space 12",
-        "floor":"parter"
+        "floor":"2"
     },
     {
         "name":"Space 13",
-        "floor":"parter"
+        "floor":"2"
     },
     {
         "name":"Space 14",
-        "floor":"parter"
+        "floor":"2"
     },
     {
         "name":"Space 15",
-        "floor":"parter"
+        "floor":"2"
     },
     {
         "name":"Space 16",
-        "floor":"parter"
+        "floor":"2"
     },
     {
         "name":"Space 17",
-        "floor":"parter"
+        "floor":"2"
     },
     {
         "name":"Space 18",
-        "floor":"parter"
+        "floor":"2"
     },
     {
         "name":"Space 19",
-        "floor":"parter"
+        "floor":"3"
     },
     {
         "name":"Space 20",
-        "floor":"parter"
+        "floor":"3"
     },
     {
         "name":"Space 21",
-        "floor":"parter"
+        "floor":"3"
     },
     {
         "name":"Space 22",
-        "floor":"parter"
+        "floor":"3"
     },
     {
         "name":"Space 23",
-        "floor":"parter"
+        "floor":"3"
     }
 ]

@@ -14,11 +14,12 @@ class Schedule extends React.Component {
             hour:'',
             space:'',
             hour_selected:false,
-            desired_space:''
+            desired_space:'',
+            spaces:''
         }
     }
   render() {
-    console.log(this.props.spaces)
+    //this.props.spaces && this.setState
     console.log(this.state)
 
     //console.log("spatii" + spatii.length)
@@ -44,10 +45,10 @@ class Schedule extends React.Component {
       <div id = "schedule-window" className = "schedule-window" >
         <div className = "hours">
            <div className='title'>
-                Programeaza pentru {this.props.date}:
+                Schedule for {this.props.date}:
             </div> 
             <div>
-                Ora (introdu un numar intre 8 si 16)<input className='interval' onChange = {(e) => {
+                Hour (Insert a number between 8 and 16)<input className='interval' onChange = {(e) => {
                     this.setState({hour:e.target.value})
                 }} id = "hour-interval" type="number" />
             </div>
@@ -71,13 +72,14 @@ class Schedule extends React.Component {
                     if(spaces[index].name.toLowerCase().match(this.state.desired_space.toLowerCase())){
                         let ocupied = false
                         this.props.spaces.map((item) => {       
-                            console.log(item.time_interval)
+                            console.log("Space " + item.space)
                             if(item.space == spaces[index].name && item.time_interval == myInterval){
-                                console.log(item.space)
                                 ocupied = true
                                 return
                             }
                         })
+                        
+                        console.log("ocupied " + ocupied)
                         return(
                             ocupied ? 
                             <div id={"Space" + index} className = "ocupied">
@@ -85,7 +87,7 @@ class Schedule extends React.Component {
                             </div>
                             :
                             <div id={"Space" + index} className = "unocupied" onClick = {() => {
-                                for(let i = 0; i<spaces.filter(item => item.name.includes(this.state.desired_space)).length; i++){
+                                for(let i = 0; i<spaces.filter(item => item.name.match(this.state.desired_space)).length; i++){
                                     if(i == index)
                                         document.getElementById("Space" + i).style.backgroundColor = "rgb(148, 148, 148)"
 
@@ -93,7 +95,8 @@ class Schedule extends React.Component {
                                         document.getElementById("Space" + i).style.background = "none"
                                 }
                                 this.props.scheduleFor({
-                                    space:spaces[index].spaces,
+                                    space:spaces[index].name,
+                                    floor:spaces[index].floor,
                                     hour:this.state.hour
                                 })
                             }}>

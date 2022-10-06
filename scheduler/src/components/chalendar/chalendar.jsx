@@ -81,11 +81,10 @@ class Chalendar extends React.Component {
 
                                         <div id = {index} className = "inside-month" onClick = {(e) => {                              
                                             Axios.post("http://localhost:3005/get_spaces", {
-                                                date:`${index}/${current_month}/${current_year}`
+                                                date:`${index}/${current_month}/${current_year}`,
                                             }).then((data) => {
-                                               // console.log(data.data)
                                                 this.props.send_spaces(data.data)
-                                                // this.setState({list:data.data})
+                                                data.data && console.log("data " + data.data)
                                             })
                                             Array.from(Array(current_month_days + 1)).map((item, pos) => {
                                                 
