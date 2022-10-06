@@ -73,7 +73,7 @@ app.post("/post_user", (req, res) => {
             result && res.send({token:token})
 
             const mailOptions = {
-                from:"test13122333@outlook.com",
+                from:"confirm.test@outlook.com",
                 to:email,
                 subject:'Email confirmation',
                 html: `<div>
@@ -83,7 +83,7 @@ app.post("/post_user", (req, res) => {
             }
         
         
-            transport_1.sendMail(mailOptions, (err, result) => {
+            transport.sendMail(mailOptions, (err, result) => {
                 err ? console.log(err):
                 res.send("email sent")
             })
