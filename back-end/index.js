@@ -52,16 +52,8 @@ app.post("/post_user", (req, res) => {
     const username = req.body.username
     const password = req.body.password
     const token = req.body.token
-    // let token = '';
-
-    // for(let i = 0; i < 25; i++){
-    //     token += characters[Math.floor(Math.random() * characters.length)]
-    // }
 
     console.log(token)
-
-    
-    // function Sign_up(email, username, password, token){
     db.query(`SELECT * FROM users WHERE email = "${email}"`, (err, result) => {
         err && console.log(err)
         console.log("users " + result)
