@@ -5,10 +5,14 @@
 - The data are sent to a MySQL database and displayed in a table back in the application, so the users can see their activities.
 
 ## Stack-used:
-- Front-end: JavaScript, React, CSS
-- Back-end: JavaScript, Node.js
-- Database: MySQL
+- Front-end: JavaScript, React, CSS;
+- Back-end: JavaScript, Node.js;
+- Database: MySQL;
+- Deployment: GitHub, Heroku(for backend), Netlify(for frontend);
 
+- App link: https://schedule-app-frontend.netlify.app/
+
+- Note: I am still working on some bugs
 
 - This is the main page of the app, where users can choose between entering the form page to schedule their activity and entering the table page to view their activity
 ![2022-08-20](https://user-images.githubusercontent.com/91996303/194409929-3cfc56a2-f0bf-43d1-8cc2-e18d48a89940.png)
